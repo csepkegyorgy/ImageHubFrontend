@@ -1,29 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import LoginPage from './Pages/LoginPage'
+
 
 class App extends Component {
 
-  state = {
-    stuff: []
-  }
-  
   render() {
     return (
-      this.state.stuff.map(stf => {
-        return(
-          <h1 key={stf}>
-            {stf}
-          </h1>
-        )
-      })
-    );
-  }
+      <React.Fragment>
+        <LoginPage></LoginPage>
+      </React.Fragment>
 
-  componentDidMount(){
-    fetch('http://localhost:60089/api/values')
-      .then(res => res.json())
-      .then((data) => {
-      this.setState({ stuff: data })})
-      .catch(console.log)
+    );
   }
 }
 
