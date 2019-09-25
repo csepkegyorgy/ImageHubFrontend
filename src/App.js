@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react';
-import LoginPage from './Pages/LoginPage'
-
+import Header from './Components/Layouts/Header';
+import ImageHubBody from './Components/Layouts/ImageHubBody';
+import Footer from './Components/Layouts/Footer';
 
 class App extends Component {
-
   render() {
     return (
-      <React.Fragment>
-        <LoginPage></LoginPage>
-      </React.Fragment>
-
+      <Fragment>
+        <Header/>
+        <ImageHubBody/>
+        <Footer/>
+      </Fragment>
     );
   }
 }
