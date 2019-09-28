@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { AppBar, Toolbar, Grid, TextField, Box } from "@material-ui/core"
 import SvgIcon from '@material-ui/core/SvgIcon';
+import '../../index.css'
+
 
 class Header extends Component {
     render() {
@@ -18,8 +20,8 @@ class Header extends Component {
                         <Grid item sm>
                             <Box border={1} height={100}>
                                 <TextField>
-
                                 </TextField>
+<h1 className="title">This is ImageHub</h1>
                             </Box>
                         </Grid>
                         <Grid item sm>
