@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { AppBar, Toolbar, Grid, TextField, Box } from "@material-ui/core"
+import { AppBar, Grid, TextField, Box } from "@material-ui/core"
 import SvgIcon from '@material-ui/core/SvgIcon';
 import '../../index.css'
 
@@ -15,27 +15,36 @@ class Header extends Component {
                                 <SvgIcon>
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                 </SvgIcon>
+                                <h1 className="title">This is ImageHub</h1>
                             </Box>
                         </Grid>
                         <Grid item sm>
-                            <Box border={1} height={100}>
-                                <TextField>
-                                </TextField>
-<h1 className="title">This is ImageHub</h1>
-                            </Box>
+                            {this.props.loggedInUser &&
+                                <Fragment>
+                                    <Box border={1} height={100}>
+                                        <TextField variant="filled">
+
+                                        </TextField>
+                                    </Box>
+                                </Fragment>
+                            }
                         </Grid>
                         <Grid item sm>
-                            <Box border={1} height={100}>
-                                <SvgIcon>
-                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                                </SvgIcon>
-                                <SvgIcon>
-                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                                </SvgIcon>
-                                <SvgIcon>
-                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                                </SvgIcon>
-                            </Box>
+                            {this.props.loggedInUser &&
+                                <Fragment>
+                                    <Box border={1} height={100}>
+                                        <SvgIcon>
+                                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                                        </SvgIcon>
+                                        <SvgIcon>
+                                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                                        </SvgIcon>
+                                        <SvgIcon>
+                                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+                                        </SvgIcon>
+                                    </Box>
+                                </Fragment>
+                            }
                         </Grid>
                     </Grid>
                 </AppBar>
