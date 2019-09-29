@@ -58,3 +58,7 @@ export async function UploadImageForPost(userId, file){
 export function GetPostImageUrlById(id){
     return "https://localhost:44329/api/images?type=post&id=" + id;
 }
+
+export function GetProfileIconImageUrlById(id){
+    return "https://localhost:44329/api/images?type=profile&id=" + id;
+}
