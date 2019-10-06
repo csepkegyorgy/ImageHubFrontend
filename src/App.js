@@ -15,7 +15,7 @@ const theme = createMuiTheme({
 
 class App extends Component {
   state = {
-    loggedInUser: null,
+    loggedInUser: { userId: "7bc130e4-60bc-4c45-84a4-f995bd991ed5", email:"asd@asd.hu", name:"mock"},
     posts: []
   }
 
@@ -38,7 +38,7 @@ class App extends Component {
   }
 
   userSuccessfulLogin = () => {
-    GetUserFeed(this.state.loggedInUser.userId, 3, null)
+    GetUserFeed(this.state.loggedInUser.userId, 15, null)
       .then(res => {
         console.log(res.posts)
         this.setState({posts : res.posts})
@@ -53,6 +53,10 @@ class App extends Component {
         <Footer />
       </MuiThemeProvider>
     );
+  }
+
+  componentWillMount() {
+    //this.userSuccessfulLogin();
   }
 }
 

@@ -1,48 +1,54 @@
 import React, { Component, Fragment } from 'react';
-import { Paper, Box, Grid, Typography } from '@material-ui/core';
+import { Avatar, Card, CardHeader, CardMedia, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
 import { GetPostImageUrlById } from '../../DataAccessLayer';
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import CommentIcon from '@material-ui/icons/Comment';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
 
 class PostPane extends Component {
     render() {
         console.log(this.props.post)
-        console.log(this.props.post.posterProfileIconId)
 
         return (
             <Fragment>
-                <Paper>
-                    <Box width={400}>
-                        <Grid container direction="column">
-                            <Grid item style={{padding:20}}>
-                                <img height={50} width={50} src={GetProfileIconImageUrlById("thisdoggo.jpg")}/>
-                                <Typography variant="caption">
-                                    {this.props.post.posterName}
-                                </Typography>
-                            </Grid>
-                            <Grid item style={{padding:20}}>
-                                <Typography variant="h6">
-                                    {this.props.post.date}
-                                </Typography>
-                            </Grid>
-                            <Grid item>
-                                <img height={400} width={400} src={GetPostImageUrlById(this.props.post.imageId)}/>
-                            </Grid>
-                            <Grid item style={{padding:20}}>
-                                <Typography variant="h6">
-                                    {this.props.post.hubtasticCount}
-                                </Typography>
-                            </Grid>
-                            <Grid item style={{padding:20}}>
-                                <Typography variant="h4">
-                                    {this.props.post.postDescription}
-                                </Typography>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Paper>
+                <Card style={{width:400}}>
+                    <CardHeader
+                        avatar={
+                            <Avatar src={GetProfileIconImageUrlById(this.props.post.posterProfileIconId)}/>
+                        }
+                        action={
+                        <IconButton aria-label="settings">
+                            <MoreVertIcon />
+                        </IconButton>
+                        }
+                        title={this.props.post.posterName}
+                        subheader={this.props.post.date}
+                    />
+                    <CardMedia image={GetPostImageUrlById(this.props.post.imageId)} component="img"/>
+                    <CardContent>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            {this.props.post.postDescription}
+                        </Typography>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <IconButton aria-label="add to favorites">
+                            <FavoriteIcon />
+                        </IconButton>
+                        <IconButton aria-label="share">
+                            <ShareIcon />
+                        </IconButton>
+                        <IconButton>
+                            <CommentIcon />
+                        </IconButton>
+                    </CardActions>
+                </Card>
             </Fragment>
         );
     }
 }
 
 export default PostPane;
+
+

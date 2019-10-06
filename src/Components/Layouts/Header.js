@@ -21,11 +21,7 @@ class Header extends Component {
                         <Grid item sm>
                             {this.props.loggedInUser &&
                                 <Fragment>
-                                    <Box border={1} height={100}>
-                                        <TextField variant="filled">
-
-                                        </TextField>
-                                    </Box>
+                                    <TextField variant="filled" />
                                 </Fragment>
                             }
                         </Grid>
