@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Box } from '@material-ui/core';
 import LoginPane from '../Parts/LoginPane';
 import PostList from '../Parts/PostList';
 
@@ -17,10 +17,18 @@ class ImageHubBody extends Component {
                     </Fragment>
                 }
                 
-                { this.props.loggedInUser && 
+                { this.props.loggedInUser && this.props.bodySite === "feed" &&
                     <Fragment>
                         { this.props.posts && this.props.posts.length > 0 &&
                             <PostList posts={this.props.posts} direction="column" />
+                        }
+                    </Fragment>
+                }
+
+                { this.props.loggedInUser && this.props.bodySite === "user" &&
+                    <Fragment>
+                        { this.props.posts && this.props.posts.length > 0 &&
+                            <PostList posts={this.props.posts} direction="row" />
                         }
                     </Fragment>
                 }

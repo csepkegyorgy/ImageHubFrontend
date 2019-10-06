@@ -6,6 +6,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CommentIcon from '@material-ui/icons/Comment';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
+import { maxHeight } from '@material-ui/system';
 
 class PostPane extends Component {
     render() {
@@ -13,7 +14,7 @@ class PostPane extends Component {
 
         return (
             <Fragment>
-                <Card style={{width:400}}>
+                <Card style={{width:400, maxHeight:600}}>
                     <CardHeader
                         avatar={
                             <Avatar src={GetProfileIconImageUrlById(this.props.post.posterProfileIconId)}/>
@@ -26,7 +27,7 @@ class PostPane extends Component {
                         title={this.props.post.posterName}
                         subheader={this.props.post.date}
                     />
-                    <CardMedia image={GetPostImageUrlById(this.props.post.imageId)} component="img"/>
+                    <CardMedia height={400} width={400} image={GetPostImageUrlById(this.props.post.imageId)} component="img"/>
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
                             {this.props.post.postDescription}

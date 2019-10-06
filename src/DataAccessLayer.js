@@ -1,5 +1,5 @@
 export async function GetUserFeed(userId, take, lastPostId){
-    let uri = "https://localhost:44329/api/posts/getfeed?take=" + take + "&userId=" + userId
+    let uri = "https://localhost:44329/api/posts/listposts?type=userfeed&take=" + take + "&userId=" + userId
     if (lastPostId){
         uri += "&lastPostId=" + lastPostId 
     }
@@ -12,6 +12,21 @@ export async function GetUserFeed(userId, take, lastPostId){
         return { error : "No backend server available." } 
     }
 
+}
+
+export async function LoadUserPosts(userId, take, lastPostId){
+    let uri = "https://localhost:44329/api/posts/listposts?type=usersite&take=" + take + "&userId=" + userId
+    if (lastPostId){
+        uri += "&lastPostId=" + lastPostId 
+    }
+    const response = await fetch(uri).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." } 
+    }
 }
 
 export async function AuthenticateUserByFacebookLogin(facebookResponse) {

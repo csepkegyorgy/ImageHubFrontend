@@ -12,10 +12,10 @@ class Header extends Component {
                     <Grid container align="center" style={{height:100}} alignItems="center">
                         <Grid item sm>
                             <Box border={1} height={100}>
-                                <SvgIcon>
+                                <SvgIcon onClick={this.props.redirectToUserFeed}>
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                 </SvgIcon>
-                                <h1 className="title">This is ImageHub</h1>
+                                <h1 className="title">ImageHub</h1>
                             </Box>
                         </Grid>
                         <Grid item sm>
@@ -35,7 +35,7 @@ class Header extends Component {
                                         <SvgIcon>
                                             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                         </SvgIcon>
-                                        <SvgIcon>
+                                        <SvgIcon onClick={this.props.redirectToUserPage}>
                                             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                         </SvgIcon>
                                     </Box>
