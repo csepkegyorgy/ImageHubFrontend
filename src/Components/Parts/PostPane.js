@@ -6,12 +6,44 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CommentIcon from '@material-ui/icons/Comment';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import { maxHeight } from '@material-ui/system';
 
 class PostPane extends Component {
-    render() {
-        console.log(this.props.post)
 
+    getDateStringForPost = () => {
+        const dayInMillisecs = 86400000;
+        const hourInMillisecs = 3600000;
+        const minuteInMillisecs = 60000;
+
+        let postDate = new Date(this.props.post.date)
+        let dateDiff = new Date() - postDate
+        let dateString = "Just now";
+        if (dateDiff > dayInMillisecs){
+            dateString = postDate.toLocaleDateString()
+        }
+        else if (dateDiff > hourInMillisecs) {
+            let hours = Math.round(dateDiff / hourInMillisecs)
+            if (hours === 1) {
+                dateString =  "1 hour ago";
+            }
+            else {
+                dateString = hours + " hours ago"
+            }
+        }
+        else if (dateDiff > minuteInMillisecs) {
+            let minutes = Math.round(dateDiff / minuteInMillisecs)
+            if (minutes === 1) {
+                dateString =  "1 minute ago";
+            }
+            else {
+                dateString = minutes + " minutes ago"
+            }
+        }
+
+        return dateString;
+    }
+
+    render() {
+        let dateString = this.getDateStringForPost();
         return (
             <Fragment>
                 <Card style={{width:400, maxHeight:600}}>
@@ -25,7 +57,7 @@ class PostPane extends Component {
                         </IconButton>
                         }
                         title={this.props.post.posterName}
-                        subheader={this.props.post.date}
+                        subheader={dateString + " " + this.props.post.date}
                     />
                     <CardMedia height={400} width={400} image={GetPostImageUrlById(this.props.post.imageId)} component="img"/>
                     <CardContent>
