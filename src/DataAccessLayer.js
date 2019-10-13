@@ -14,6 +14,31 @@ export async function GetUserFeed(userId, take, lastPostId){
 
 }
 
+export async function SubmitPost(userId, imageId, description){
+    console.log("data access layer called for submit post")
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("imageId", imageId);
+    formData.append("description", description);
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        "Accept" : "application/json"
+      },
+      body: formData 
+    }
+
+    const response = await fetch('https://localhost:44329/api/posts/', options).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." }
+    }
+}
+
 export async function LoadUserPosts(userId, take, lastPostId){
     let uri = "https://localhost:44329/api/posts/listposts?type=usersite&take=" + take + "&userId=" + userId
     if (lastPostId){

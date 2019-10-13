@@ -10,7 +10,7 @@ class PostList extends Component {
                 <Grid container spacing={0} direction={this.props.direction} alignItems="center" justify="center" style={{ minHeight: '100vh' }}>
                     {this.props.posts.map(post => {
                         return(
-                            <Grid item sm style={{margin:10}} key={post.postId}>
+                            <Grid item style={{margin:10}} key={post.postId}>
                                 <PostPane post={post}/>
                             </Grid>
                         );

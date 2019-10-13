@@ -21,36 +21,35 @@ class App extends Component {
   }
 
   handleUserLogin = (facebookResponse) => {
-    let responseUserState =
-      AuthenticateUserByFacebookLogin(facebookResponse)
-        .then(res => {
-          if (res.errors) {
-            console.log(res.error)
+    AuthenticateUserByFacebookLogin(facebookResponse)
+      .then(res => {
+        if (res.errors) {
+          console.log(res.error)
+        }
+        else {
+          if (res.successfulLogin === true) {
+            this.setState({ loggedInUser: res }, this.refreshPosts)
           }
           else {
-            if (res.successfulLogin === true) {
-              this.setState({ loggedInUser: res }, this.loadPosts)
-            }
-            else {
-              this.setState({ loggedInUser: null })
-            }
+            this.setState({ loggedInUser: null })
           }
-        });
+        }
+      });
   }
 
   redirectToUserPage = () => {
-    this.setState({bodySite:"user"}, this.loadPosts);
+    this.setState({bodySite:"user"}, this.refreshPosts);
   }
   
   redirectToUserFeed = () => {
-    this.setState({bodySite:"feed"}, this.loadPosts);
+    this.setState({bodySite:"feed"}, this.refreshPosts);
   }
 
-  loadPosts = () => {
+  refreshPosts = () => {
     if (this.state.bodySite === "user"){
       GetUserFeed(this.state.loggedInUser.userId, 15, null)
         .then(res => {
-          console.log(res.posts)
+          console.log(res)
           this.setState({posts : res.posts})
         })
     }
@@ -76,14 +75,11 @@ class App extends Component {
           bodySite={this.state.bodySite}
           handleUserLogin={this.handleUserLogin}
           posts={this.state.posts}
+          refreshPosts={this.refreshPosts}
           />
         <Footer />
       </MuiThemeProvider>
     );
-  }
-
-  componentWillMount() {
-    //this.userSuccessfulLogin();
   }
 }
 

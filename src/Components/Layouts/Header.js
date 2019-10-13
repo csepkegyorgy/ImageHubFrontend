@@ -11,7 +11,7 @@ class Header extends Component {
                 <AppBar position="static">
                     <Grid container align="center" style={{height:100}} alignItems="center">
                         <Grid item sm>
-                            <Box border={1} height={100}>
+                            <Box height={100}>
                                 <SvgIcon onClick={this.props.redirectToUserFeed}>
                                     <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                 </SvgIcon>
@@ -28,7 +28,7 @@ class Header extends Component {
                         <Grid item sm>
                             {this.props.loggedInUser &&
                                 <Fragment>
-                                    <Box border={1} height={100}>
+                                    <Box height={100}>
                                         <SvgIcon>
                                             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
                                         </SvgIcon>

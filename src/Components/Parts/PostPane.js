@@ -57,7 +57,7 @@ class PostPane extends Component {
                         </IconButton>
                         }
                         title={this.props.post.posterName}
-                        subheader={dateString + " " + this.props.post.date}
+                        subheader={dateString}
                     />
                     <CardMedia height={400} width={400} image={GetPostImageUrlById(this.props.post.imageId)} component="img"/>
                     <CardContent>
