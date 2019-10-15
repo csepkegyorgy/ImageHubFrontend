@@ -76,7 +76,7 @@ class ImageHubBody extends Component {
                                     <PostList posts={this.props.posts} direction="row" />
                                 }
                             </Grid>
-                            <Grid item sm={2} style={{ margin: 10 }} align="center">
+                            <Grid item sm={2} style={{ margin: 10 }}>
                                 <Paper>
                                     <Grid container direction="column" style={{ padding: 10 }}>
                                         <Grid item>
