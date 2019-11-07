@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { AppBar, Grid, TextField, Box, IconButton , Avatar, Button} from "@material-ui/core"
+import { AppBar, Grid, TextField, Box, IconButton, Avatar, Button, Toolbar } from "@material-ui/core"
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
+import { GetAppLogo } from '../../DataAccessLayer';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Settings from '@material-ui/icons/Settings';
 import Comment from '@material-ui/icons/Comment'
@@ -11,13 +12,22 @@ class Header extends Component {
     render() {
         return (
             <Fragment>
-                <AppBar position="static">
+                <AppBar position="static" >
+                    <Toolbar>
+                        <Button>
+                            <img src={GetAppLogo()} onClick={this.props.redirectToUserFeed} />
+                        </Button>
+                    </Toolbar>
                     <Grid container align="center" style={{ height: 100 }} alignItems="center">
+                        {/* <Grid item sm>
+                            <Box height={100}>
+                                <Button>
+                                    <img src={GetProfileIconImageUrlById(this.props.loggedInUser.posterProfileIconId)} onClick={this.props.redirectToUserPage} />
+                                </Button>
+                            </Box>
+                        </Grid> */}
                         <Grid item sm>
                             <Box height={100}>
-                                <SvgIcon onClick={this.props.redirectToUserFeed}>
-                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-                                </SvgIcon>
                                 <h1 className="title">ImageHub</h1>
                             </Box>
                         </Grid>
@@ -39,7 +49,7 @@ class Header extends Component {
                                             <Settings />
                                         </IconButton>
                                         <Button>
-                                        <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.posterProfileIconId)}  onClick={this.props.redirectToUserPage} />
+                                            <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.posterProfileIconId)} onClick={this.props.redirectToUserPage} />
 
                                         </Button>
                                     </Box>

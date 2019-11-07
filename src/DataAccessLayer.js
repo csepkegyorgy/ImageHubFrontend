@@ -102,3 +102,8 @@ export function GetPostImageUrlById(id){
 export function GetProfileIconImageUrlById(id){
     return "https://localhost:44329/api/images?type=profile&id=" + id;
 }
+
+export function GetAppLogo()
+{
+    return "http://localhost:44329/api/images?type=applogo";
+}
