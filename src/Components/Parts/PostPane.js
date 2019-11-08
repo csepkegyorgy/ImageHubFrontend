@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import { Avatar, Card, CardHeader, CardMedia, CardContent, CardActions, Typography, IconButton } from '@material-ui/core';
+import { Avatar, Card, CardHeader, CardMedia, CardContent, CardActions, Typography, IconButton, Button } from '@material-ui/core';
 import { GetPostImageUrlById } from '../../DataAccessLayer';
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
+import { GetUserFeed } from '../../DataAccessLayer';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CommentIcon from '@material-ui/icons/Comment';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -56,10 +57,19 @@ class PostPane extends Component {
                             <MoreVertIcon />
                         </IconButton>
                         }
-                        title={this.props.post.posterName}
+                        title={<Button 
+                             onClick= {GetUserFeed(this.props.post.posterid, 15, null)}
+                            >
+                            {/* John Doe */}
+                            {this.props.post.posterName}
+                        </Button>}
                         subheader={dateString}
                     />
-                    <CardMedia height={400} width={400} image={GetPostImageUrlById(this.props.post.imageId)} component="img"/>
+                    <CardMedia height={400} width={400} 
+                    //image="https://picsum.photos/id/170/400/400"
+                    image={GetPostImageUrlById(this.props.post.imageId)} 
+                    component="img"
+                    />
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
                             {this.props.post.postDescription}

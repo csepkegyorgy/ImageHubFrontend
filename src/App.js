@@ -15,7 +15,9 @@ const theme = createMuiTheme({
 
 class App extends Component {
   state = {
-    loggedInUser: null,//{ userId: "7bc130e4-60bc-4c45-84a4-f995bd991ed5", email:"asd@asd.hu", name:"mock"},
+    loggedInUser: 
+     //null,
+    {userId: "7bc130e4-60bc-4c45-84a4-f995bd991ed5", email:"asd@asd.hu", name:"mock"},
     posts: [],
     bodySite : "feed"
   }
@@ -35,6 +37,25 @@ class App extends Component {
           }
         }
       });
+  }
+  
+  createMockPosts()
+  {
+    this.state.posts.push(        
+          {
+            "postid": "1e0dcfee-fe1f-4314-8abe-32ae708d131f",
+            "postername": "Mihail Szergejevics Gorbacsov",
+            "posterid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45",
+            "posterprofileiconid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45_19861011151515.jpg",
+            "imageid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45_19861011202020.jpg",
+            "postdescription": "Yo me and my dude Ronny Long-ago havin a good ol doobie rn #wasted",
+            "hubtasticcount": 420,
+            "date": "1986-10-11T20:20:20.511Z",
+            "ishubbedbycurrentuser": true
+          }       
+           
+      //https://picsum.photos/id/169/400/400
+    )
   }
 
   redirectToUserPage = () => {
@@ -63,6 +84,7 @@ class App extends Component {
   }
 
   render() {
+    // this.createMockPosts();
     return (
       <MuiThemeProvider theme={theme}>
         <Header
