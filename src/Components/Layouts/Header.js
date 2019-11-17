@@ -13,20 +13,20 @@ class Header extends Component {
         return (
             <Fragment>
                 <AppBar position="static" >
-                    <Toolbar>
+                    {/* <Toolbar>
                         <Button>
                             <img src={GetAppLogo()} onClick={this.props.redirectToUserFeed} />
                         </Button>
-                    </Toolbar>
+                    </Toolbar> */}
                     <Grid container align="center" style={{ height: 100 }} alignItems="center">
-                        {/* <Grid item sm>
+                        <Grid item xs={2}>
                             <Box height={100}>
                                 <Button>
                                     <img src={GetProfileIconImageUrlById(this.props.loggedInUser.posterProfileIconId)} onClick={this.props.redirectToUserPage} />
                                 </Button>
                             </Box>
-                        </Grid> */}
-                        <Grid item sm>
+                        </Grid>
+                        <Grid item xs={2}>
                             <Box height={100}>
                                 <h1 className="title">ImageHub</h1>
                             </Box>
