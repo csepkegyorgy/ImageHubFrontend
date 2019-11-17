@@ -58,8 +58,7 @@ class PostPane extends Component {
                         </IconButton>
                         }
                         title={<Button 
-                             onClick= {GetUserFeed(this.props.post.posterid, 15, null)}
-                            >
+                             onClick= {this.props.redirectToUserPage(this.props.post.posterId)}>
                             {/* John Doe */}
                             {this.props.post.posterName}
                         </Button>}

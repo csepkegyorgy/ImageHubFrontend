@@ -58,6 +58,7 @@ export async function AuthenticateUserByFacebookLogin(facebookResponse) {
     let uri = "https://localhost:44329/api/authentication/loginuser?" +
         "facebookUserId=" + facebookResponse.userID +
         "&email=" + facebookResponse.email +
+        "&facebookImageUrl=" + encodeURIComponent(facebookResponse.picture.data.url) +
         "&name=" + facebookResponse.name;
 
     const response = await fetch(uri).catch(console.log)

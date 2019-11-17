@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Grid, Box, Paper, CircularProgress, TextField } from '@material-ui/core';
-import LoginPane from '../Parts/LoginPane';
 import PostList from '../Parts/PostList';
 import { UploadImageForPost, GetPostImageUrlById, SubmitPost } from '../../DataAccessLayer';
 import { green } from '@material-ui/core/colors';

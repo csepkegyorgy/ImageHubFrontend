@@ -22,7 +22,7 @@ class Header extends Component {
                         <Grid item xs={2}>
                             <Box height={100}>
                                 <Button>
-                                    <img src={GetProfileIconImageUrlById(this.props.loggedInUser.posterProfileIconId)} onClick={this.props.redirectToUserPage} />
+                                    <img src={GetAppLogo()} onClick={this.props.redirectToUserFeed} />
                                 </Button>
                             </Box>
                         </Grid>
@@ -49,7 +49,7 @@ class Header extends Component {
                                             <Settings />
                                         </IconButton>
                                         <Button>
-                                            <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.posterProfileIconId)} onClick={this.props.redirectToUserPage} />
+                                            <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} onClick={this.props.redirectToUserPage} />
 
                                         </Button>
                                     </Box>

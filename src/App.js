@@ -4,7 +4,7 @@ import ImageHubBody from './Components/Layouts/ImageHubBody';
 import Footer from './Components/Layouts/Footer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
-import { AuthenticateUserByFacebookLogin } from './DataAccessLayer'
+import { AuthenticateUserByFacebookLogin, LoadUserPosts } from './DataAccessLayer'
 import { GetUserFeed } from './DataAccessLayer'
 
 const theme = createMuiTheme({
@@ -16,10 +16,11 @@ const theme = createMuiTheme({
 class App extends Component {
   state = {
     loggedInUser: 
-     //null,
-    {userId: "7bc130e4-60bc-4c45-84a4-f995bd991ed5", email:"asd@asd.hu", name:"mock"},
+     null,
+    //{userId: "7bc130e4-60bc-4c45-84a4-f995bd991ed5", email:"asd@asd.hu", name:"mock"},
     posts: [],
-    bodySite : "feed"
+    bodySite : "feed",
+    otherUserId : null
   }
 
   handleUserLogin = (facebookResponse) => {
@@ -39,36 +40,41 @@ class App extends Component {
       });
   }
   
-  createMockPosts()
-  {
-    this.state.posts.push(        
-          {
-            "postid": "1e0dcfee-fe1f-4314-8abe-32ae708d131f",
-            "postername": "Mihail Szergejevics Gorbacsov",
-            "posterid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45",
-            "posterprofileiconid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45_19861011151515.jpg",
-            "imageid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45_19861011202020.jpg",
-            "postdescription": "Yo me and my dude Ronny Long-ago havin a good ol doobie rn #wasted",
-            "hubtasticcount": 420,
-            "date": "1986-10-11T20:20:20.511Z",
-            "ishubbedbycurrentuser": true
-          }       
+  // createMockPosts()
+  // {
+  //   this.state.posts.push(        
+  //         {
+  //           "postid": "1e0dcfee-fe1f-4314-8abe-32ae708d131f",
+  //           "postername": "Mihail Szergejevics Gorbacsov",
+  //           "posterid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45",
+  //           "posterprofileiconid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45_19861011151515.jpg",
+  //           "imageid": "4d6cbdd7-bfda-4664-a7a1-e70a91bbdd45_19861011202020.jpg",
+  //           "postdescription": "Yo me and my dude Ronny Long-ago havin a good ol doobie rn #wasted",
+  //           "hubtasticcount": 420,
+  //           "date": "1986-10-11T20:20:20.511Z",
+  //           "ishubbedbycurrentuser": true
+  //         }       
            
-      //https://picsum.photos/id/169/400/400
-    )
-  }
+  //     //https://picsum.photos/id/169/400/400
+  //   )
+  // }
 
-  redirectToUserPage = () => {
-    this.setState({bodySite:"user"}, this.refreshPosts);
+  redirectToUserPage = (userId) => {
+    if (userId){
+      this.setState({bodySite:"otheruser", otherUserId:userId}, this.refreshPosts);
+    }
+    else{
+      this.setState({bodySite:"user", otherUserId:null}, this.refreshPosts);
+    }
   }
   
   redirectToUserFeed = () => {
-    this.setState({bodySite:"feed"}, this.refreshPosts);
+    this.setState({bodySite:"feed", otherUserId:null}, this.refreshPosts);
   }
 
   refreshPosts = () => {
     if (this.state.bodySite === "user"){
-      GetUserFeed(this.state.loggedInUser.userId, 15, null)
+      LoadUserPosts(this.state.loggedInUser.userId, 15, null)
         .then(res => {
           console.log(res)
           this.setState({posts : res.posts})
@@ -76,6 +82,13 @@ class App extends Component {
     }
     else if (this.state.bodySite === "feed"){
       GetUserFeed(this.state.loggedInUser.userId, 15, null)
+        .then(res => {
+          console.log(res.posts)
+          this.setState({posts : res.posts})
+        })
+    }
+    else if (this.state.bodySite === "otheruser"){
+      LoadUserPosts(this.state.otherUserId, 15, null)
         .then(res => {
           console.log(res.posts)
           this.setState({posts : res.posts})
@@ -98,6 +111,7 @@ class App extends Component {
           handleUserLogin={this.handleUserLogin}
           posts={this.state.posts}
           refreshPosts={this.refreshPosts}
+          userPageUserId={this.state.otherUserId}
           />
         <Footer />
       </MuiThemeProvider>
