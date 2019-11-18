@@ -71,6 +71,20 @@ export async function AuthenticateUserByFacebookLogin(facebookResponse) {
     }
 }
 
+export async function SearchUsersByPartialUserName(partialUserName) {
+    let uri = "https://localhost:44329/api/users?partialUserName=" + partialUserName;
+
+    const response = await fetch(uri).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." } 
+    }
+}
+
+
 export async function GetUserRelationByUserId(loggedInUserId, targetUserId) {
     let uri = "https://localhost:44329/api/userrelations?" +
         "userId=" + loggedInUserId +
