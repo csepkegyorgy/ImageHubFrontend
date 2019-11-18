@@ -71,6 +71,117 @@ export async function AuthenticateUserByFacebookLogin(facebookResponse) {
     }
 }
 
+export async function GetUserRelationByUserId(loggedInUserId, targetUserId) {
+    let uri = "https://localhost:44329/api/userrelations?" +
+        "userId=" + loggedInUserId +
+        "&targetUserId=" + targetUserId;
+
+    const response = await fetch(uri).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." } 
+    }
+}
+
+export async function CreateFollowUserRequest(loggedInUserId, targetUserId) {
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("targetUserId", targetUserId);
+    formData.append("type", "followRequest");
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        "Accept" : "application/json"
+      },
+      body: formData 
+    }
+
+    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." }
+    }
+}
+
+export async function CreateRejectFollowUserRequest(loggedInUserId, targetUserId) {
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("targetUserId", targetUserId);
+    formData.append("type", "followReject");
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        "Accept" : "application/json"
+      },
+      body: formData 
+    }
+
+    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." }
+    }
+}
+
+export async function CreateAcceptFollowUserRequest(loggedInUserId, targetUserId) {
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("targetUserId", targetUserId);
+    formData.append("type", "followAccept");
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        "Accept" : "application/json"
+      },
+      body: formData 
+    }
+
+    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." }
+    }
+}
+
+export async function CreateUnfollowUserRequest(loggedInUserId, targetUserId) {
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("targetUserId", targetUserId);
+    formData.append("type", "unfollow");
+    
+    const options = {
+      method: 'POST',
+      headers: {
+        "Accept" : "application/json"
+      },
+      body: formData 
+    }
+
+    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    if (response) {
+        const jsonResponse = await response.json()
+        return jsonResponse;
+    }
+    else {
+        return { error : "No backend server available." }
+    }
+}
+
 export async function UploadImageForPost(userId, file){
     // file is retrieved from fileEvent.target.files[0] if fileEvent is a parameter of a callback function for input element's onChanged event
     var formData = new FormData();
