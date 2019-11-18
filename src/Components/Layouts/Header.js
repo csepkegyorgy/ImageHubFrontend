@@ -13,11 +13,6 @@ class Header extends Component {
         return (
             <Fragment>
                 <AppBar position="static" >
-                    {/* <Toolbar>
-                        <Button>
-                            <img src={GetAppLogo()} onClick={this.props.redirectToUserFeed} />
-                        </Button>
-                    </Toolbar> */}
                     <Grid container align="center" style={{ height: 100 }} alignItems="center">
                         <Grid item xs={2}>
                             <Box height={100}>
