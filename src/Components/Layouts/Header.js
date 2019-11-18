@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { AppBar, Grid, TextField, Box, IconButton, Avatar, Button, Toolbar } from "@material-ui/core"
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
-import { GetAppLogo } from '../../DataAccessLayer';
+import { GetAppLogoUrl } from '../../DataAccessLayer';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Settings from '@material-ui/icons/Settings';
 import Comment from '@material-ui/icons/Comment'
@@ -13,17 +13,10 @@ class Header extends Component {
         return (
             <Fragment>
                 <AppBar position="static" >
-                    {/* <Toolbar>
-                        <Button>
-                            <img src={GetAppLogo()} onClick={this.props.redirectToUserFeed} />
-                        </Button>
-                    </Toolbar> */}
                     <Grid container align="center" style={{ height: 100 }} alignItems="center">
                         <Grid item xs={2}>
                             <Box height={100}>
-                                <Button>
-                                    <img src={GetAppLogo()} onClick={this.props.redirectToUserFeed} />
-                                </Button>
+                                <img src={GetAppLogoUrl()} onClick={this.props.redirectToUserFeed} />
                             </Box>
                         </Grid>
                         <Grid item xs={2}>
