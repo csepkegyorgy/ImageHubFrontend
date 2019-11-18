@@ -11,7 +11,7 @@ class PostList extends Component {
                     {this.props.posts.map(post => {
                         return(
                             <Grid item style={{margin:10}} key={post.postId}>
-                                <PostPane post={post}/>
+                                <PostPane post={post} redirectToUserPage={this.props.redirectToUserPage}/>
                             </Grid>
                         );
                     })}

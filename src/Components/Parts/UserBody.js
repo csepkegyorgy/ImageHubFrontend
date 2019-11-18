@@ -31,16 +31,16 @@ class UserBody extends Component {
     submitPost = () => {
         if (this.state.uploadedImageForPost !== null && this.state.postDescription !== null) {
             SubmitPost(this.props.loggedInUser.userId, this.state.uploadedImageForPost, this.state.postDescription)
-                .then(res => {
-                    if (res.success === true) {
-                        this.setState({ uploadedImageForPost: null })
-                        this.setState({ postDescription: null })
-                        this.props.refreshPosts();
-                    }
-                    else {
-                        console.log("whoops")
-                    }
-                });
+            .then(res => {
+                if (res.success === true) {
+                    this.setState({ uploadedImageForPost: null })
+                    this.setState({ postDescription: null })
+                    this.props.redirectToUserPage(this.props.loggedInUser.userId);
+                }
+                else {
+                    console.log("whoops")
+                }
+            });
         }
         else {
             console.log("nulllssss")
@@ -51,8 +51,13 @@ class UserBody extends Component {
     render() {
         return (
             <Fragment>
-                <Grid container direction="row">
-                    <Grid container item>
+                <Grid container>
+                    <Grid item sm={9}>
+                        {this.props.posts && this.props.posts.length > 0 &&
+                            <PostList posts={this.props.posts} direction="row" redirectToUserPage={this.props.redirectToUserPage} />
+                        }
+                    </Grid>
+                    <Grid item sm={2} style={{ margin: 10 }}>
                         <Paper>
                             <Box margin={5}>
                                 <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)}/>

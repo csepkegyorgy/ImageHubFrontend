@@ -20,7 +20,7 @@ class App extends Component {
     //{userId: "7bc130e4-60bc-4c45-84a4-f995bd991ed5", email:"asd@asd.hu", name:"mock"},
     posts: [],
     bodySite : "feed",
-    otherUserId : null
+    userPageUserId : null
   }
 
   handleUserLogin = (facebookResponse) => {
@@ -60,37 +60,24 @@ class App extends Component {
   // }
 
   redirectToUserPage = (userId) => {
-    if (userId){
-      this.setState({bodySite:"otheruser", otherUserId:userId}, this.refreshPosts);
-    }
-    else{
-      this.setState({bodySite:"user", otherUserId:null}, this.refreshPosts);
-    }
+    console.log(userId)
+      this.setState({bodySite:"user", userPageUserId: userId}, this.refreshPosts);
   }
   
   redirectToUserFeed = () => {
-    this.setState({bodySite:"feed", otherUserId:null}, this.refreshPosts);
+    this.setState({bodySite:"feed", userPageUserId:null}, this.refreshPosts);
   }
 
   refreshPosts = () => {
     if (this.state.bodySite === "user"){
-      LoadUserPosts(this.state.loggedInUser.userId, 15, null)
+      LoadUserPosts(this.state.userPageUserId, this.state.loggedInUser.userId, 15, null)
         .then(res => {
-          console.log(res)
           this.setState({posts : res.posts})
         })
     }
     else if (this.state.bodySite === "feed"){
-      GetUserFeed(this.state.loggedInUser.userId, 15, null)
+      GetUserFeed(this.state.loggedInUser.userId, this.state.loggedInUser.userId, 15, null)
         .then(res => {
-          console.log(res.posts)
-          this.setState({posts : res.posts})
-        })
-    }
-    else if (this.state.bodySite === "otheruser"){
-      LoadUserPosts(this.state.otherUserId, 15, null)
-        .then(res => {
-          console.log(res.posts)
           this.setState({posts : res.posts})
         })
     }
@@ -106,12 +93,14 @@ class App extends Component {
           redirectToUserPage={this.redirectToUserPage}
           />
         <ImageHubBody
+          redirectToUserFeed={this.redirectToUserFeed}
+          redirectToUserPage={this.redirectToUserPage}
           loggedInUser={this.state.loggedInUser}
           bodySite={this.state.bodySite}
           handleUserLogin={this.handleUserLogin}
           posts={this.state.posts}
           refreshPosts={this.refreshPosts}
-          userPageUserId={this.state.otherUserId}
+          userPageUserId={this.state.userPageUserId}
           />
         <Footer />
       </MuiThemeProvider>

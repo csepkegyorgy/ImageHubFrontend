@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Avatar, Card, CardHeader, CardMedia, CardContent, CardActions, Typography, IconButton, Button } from '@material-ui/core';
 import { GetPostImageUrlById } from '../../DataAccessLayer';
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
-import { GetUserFeed } from '../../DataAccessLayer';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import CommentIcon from '@material-ui/icons/Comment';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -58,8 +57,7 @@ class PostPane extends Component {
                         </IconButton>
                         }
                         title={<Button 
-                             onClick= {this.props.redirectToUserPage(this.props.post.posterId)}>
-                            {/* John Doe */}
+                            onClick={() => console.log(this.props.post.posterId)}>
                             {this.props.post.posterName}
                         </Button>}
                         subheader={dateString}
