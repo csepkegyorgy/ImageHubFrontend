@@ -1,5 +1,7 @@
+const backendDomain = "https://imagehubapibackend.azurewebsites.net/api/";
+
 export async function GetUserFeed(userId, loggedInUserId, take, lastPostId){
-    let uri = "https://localhost:44329/api/posts/listposts?type=userfeed&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
+    let uri = backendDomain + "posts/listposts?type=userfeed&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
     if (lastPostId){
         uri += "&lastPostId=" + lastPostId 
     }
@@ -29,7 +31,7 @@ export async function SubmitPost(userId, imageId, description){
       body: formData 
     }
 
-    const response = await fetch('https://localhost:44329/api/posts/', options).catch(console.log)
+    const response = await fetch(backendDomain + "posts/", options).catch(console.log)
     if (response) {
         const jsonResponse = await response.json()
         return jsonResponse;
@@ -40,7 +42,7 @@ export async function SubmitPost(userId, imageId, description){
 }
 
 export async function LoadUserPosts(userId, loggedInUserId, take, lastPostId){
-    let uri = "https://localhost:44329/api/posts/listposts?type=usersite&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
+    let uri = backendDomain + "posts/listposts?type=usersite&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
     if (lastPostId){
         uri += "&lastPostId=" + lastPostId 
     }
@@ -55,7 +57,7 @@ export async function LoadUserPosts(userId, loggedInUserId, take, lastPostId){
 }
 
 export async function AuthenticateUserByFacebookLogin(facebookResponse) {
-    let uri = "https://localhost:44329/api/authentication/loginuser?" +
+    let uri = backendDomain + "authentication/loginuser?" +
         "facebookUserId=" + facebookResponse.userID +
         "&email=" + facebookResponse.email +
         "&facebookImageUrl=" + encodeURIComponent(facebookResponse.picture.data.url) +
@@ -72,7 +74,7 @@ export async function AuthenticateUserByFacebookLogin(facebookResponse) {
 }
 
 export async function SearchUsersByPartialUserName(partialUserName) {
-    let uri = "https://localhost:44329/api/users?partialUserName=" + partialUserName;
+    let uri = backendDomain + "users?partialUserName=" + partialUserName;
 
     const response = await fetch(uri).catch(console.log)
     if (response) {
@@ -86,7 +88,7 @@ export async function SearchUsersByPartialUserName(partialUserName) {
 
 
 export async function GetUserRelationByUserId(loggedInUserId, targetUserId) {
-    let uri = "https://localhost:44329/api/userrelations?" +
+    let uri = backendDomain + "userrelations?" +
         "userId=" + loggedInUserId +
         "&targetUserId=" + targetUserId;
 
@@ -114,7 +116,7 @@ export async function CreateFollowUserRequest(loggedInUserId, targetUserId) {
       body: formData 
     }
 
-    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    const response = await fetch(backendDomain + "userrelations/", options).catch(console.log)
     if (response) {
         const jsonResponse = await response.json()
         return jsonResponse;
@@ -138,7 +140,7 @@ export async function CreateRejectFollowUserRequest(loggedInUserId, targetUserId
       body: formData 
     }
 
-    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    const response = await fetch(backendDomain + "userrelations/", options).catch(console.log)
     if (response) {
         const jsonResponse = await response.json()
         return jsonResponse;
@@ -162,7 +164,7 @@ export async function CreateAcceptFollowUserRequest(loggedInUserId, targetUserId
       body: formData 
     }
 
-    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    const response = await fetch(backendDomain + "userrelations/", options).catch(console.log)
     if (response) {
         const jsonResponse = await response.json()
         return jsonResponse;
@@ -211,7 +213,7 @@ export async function UploadImageForPost(userId, file){
       body: formData 
     }
 
-    const response = await fetch('https://localhost:44329/api/images/', options).catch(console.log)
+    const response = await fetch(backendDomain + "images/", options).catch(console.log)
     if (response) {
         const jsonResponse = await response.json()
         return jsonResponse;
@@ -222,14 +224,14 @@ export async function UploadImageForPost(userId, file){
 }
 
 export function GetPostImageUrlById(id){
-    return "https://localhost:44329/api/images?type=post&id=" + id;
+    return backendDomain + "images?type=post&id=" + id;
 }
 
 export function GetProfileIconImageUrlById(id){
-    return "https://localhost:44329/api/images?type=profile&id=" + id;
+    return backendDomain + "images?type=profile&id=" + id;
 }
 
 export function GetAppLogoUrl()
 {
-    return "https://localhost:44329/api/images?id=applogo.jpg";
+    return backendDomain + "images?id=applogo.jpg";
 }
