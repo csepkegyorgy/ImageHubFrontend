@@ -7,17 +7,31 @@ import Settings from '@material-ui/icons/Settings';
 import Comment from '@material-ui/icons/Comment'
 import '../../index.css'
 import SearchResultList from '../Parts/SearchResultList';
+import { SearchUsersByPartialUserName } from '../../DataAccessLayer';
 
 
 class Header extends Component {
     state = {
-        isPopoverOpen: false
+        isPopoverOpen: false,
+        searchResults: null
     }
 
-    toggleSearchPopover() {
-        this.setState({ isPopoverOpen: !this.state.isPopoverOpen })
+    onSearchBarChange(e) {
+        let newValue = e.target.value;
+        if (newValue.length > 0){
+            this.setState({ isPopoverOpen: true });
+            SearchUsersByPartialUserName(newValue)
+            .then(res => {
+                if (res.success === true)
+                {
+                    this.setState({searchResults: res.users})
+                }
+                else {
+                    console.log(res.errors);
+                }
+            })
+        }
     }
-
 
 
     render() {
@@ -38,7 +52,7 @@ class Header extends Component {
                         <Grid item sm>
                             {this.props.loggedInUser &&
                                 <Fragment>
-                                    <TextField variant="filled" onClick={() => this.toggleSearchPopover()} />
+                                    <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} />
 
                                     <Popover
                                         open={this.state.isPopoverOpen}
@@ -53,7 +67,7 @@ class Header extends Component {
                                             horizontal: 'center',
                                           }}>
                                                 { console.log("popover is opened: " + this.state.isPopoverOpen) }
-                                                <SearchResultList users={[this.props.loggedInUser]}></SearchResultList>
+                                                {this.state.searchResults && <SearchResultList redirectToUserPage={this.props.redirectToUserPage} users={this.state.searchResults}></SearchResultList>}                                                
                                                 < Typography > The content of the Popover.</Typography>
                                     </Popover>
                                 </Fragment>

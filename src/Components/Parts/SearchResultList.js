@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Grid, Box, Avatar, Typography, Paper } from "@material-ui/core";
+import { Grid, Box, Avatar, Typography, Paper, Button } from "@material-ui/core";
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
 
 
@@ -7,15 +7,16 @@ class SearchResultList extends Component {
     render() {
         return(
             <Fragment>
-                <Grid container spacing={0}
+                <Grid container direction="column" spacing={0}
                 //  direction={this.props.direction} 
                  alignItems="center" justify="center">
                     {this.props.users.map(user => {
                         return(
+                            <Button onClick={() => this.props.redirectToUserPage(user.userId)}>
                             <Grid container direction="row" style={{margin:10}} key={user.userId}>
                                <Grid item sm={4}>
                                     <Box margin={5}>
-                                        <Avatar src={GetProfileIconImageUrlById(user.profileIconId)} />
+                                        <Avatar src={GetProfileIconImageUrlById(user.profileImageId)} />
                                     </Box>
                                 </Grid>
                                 <Grid item sm={8}>
@@ -28,6 +29,7 @@ class SearchResultList extends Component {
                                     </Box>
                                 </Grid>
                             </Grid>
+                            </Button>  
                         );
                     })}
                 </Grid>
