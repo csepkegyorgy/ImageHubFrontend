@@ -88,7 +88,7 @@ export async function GetUserRelationByUserId(loggedInUserId, targetUserId) {
 
 export async function CreateFollowUserRequest(loggedInUserId, targetUserId) {
     var formData = new FormData();
-    formData.append("userId", userId);
+    formData.append("userId", loggedInUserId);
     formData.append("targetUserId", targetUserId);
     formData.append("type", "followRequest");
     
@@ -112,7 +112,7 @@ export async function CreateFollowUserRequest(loggedInUserId, targetUserId) {
 
 export async function CreateRejectFollowUserRequest(loggedInUserId, targetUserId) {
     var formData = new FormData();
-    formData.append("userId", userId);
+    formData.append("userId", loggedInUserId);
     formData.append("targetUserId", targetUserId);
     formData.append("type", "followReject");
     
@@ -136,7 +136,7 @@ export async function CreateRejectFollowUserRequest(loggedInUserId, targetUserId
 
 export async function CreateAcceptFollowUserRequest(loggedInUserId, targetUserId) {
     var formData = new FormData();
-    formData.append("userId", userId);
+    formData.append("userId", loggedInUserId);
     formData.append("targetUserId", targetUserId);
     formData.append("type", "followAccept");
     
@@ -160,7 +160,7 @@ export async function CreateAcceptFollowUserRequest(loggedInUserId, targetUserId
 
 export async function CreateUnfollowUserRequest(loggedInUserId, targetUserId) {
     var formData = new FormData();
-    formData.append("userId", userId);
+    formData.append("userId", loggedInUserId);
     formData.append("targetUserId", targetUserId);
     formData.append("type", "unfollow");
     
