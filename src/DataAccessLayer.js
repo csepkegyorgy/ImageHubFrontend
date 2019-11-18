@@ -75,7 +75,7 @@ export async function UploadImageForPost(userId, file){
     // file is retrieved from fileEvent.target.files[0] if fileEvent is a parameter of a callback function for input element's onChanged event
     var formData = new FormData();
     formData.append("file", file);
-    formData.append("userid", "bf2475cd-5352-4c81-9316-4f4d52cdb6d5");
+    formData.append("userid", userId);
     formData.append("type", "post");
     
     const options = {

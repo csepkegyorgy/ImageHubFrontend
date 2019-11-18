@@ -34,7 +34,7 @@ class UserBody extends Component {
                 if (res.success === true) {
                     this.setState({ uploadedImageForPost: null })
                     this.setState({ postDescription: null })
-                    this.props.refreshPosts();
+                    this.props.redirectToUserPage(this.props.loggedInUser.userId);
                 }
                 else {
                     console.log("whoops")
