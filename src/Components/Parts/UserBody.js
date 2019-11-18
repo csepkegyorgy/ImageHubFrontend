@@ -4,7 +4,20 @@ import PostList from '../Parts/PostList';
 import { UploadImageForPost, GetPostImageUrlById, SubmitPost } from '../../DataAccessLayer';
 import { green } from '@material-ui/core/colors';
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
+import FollowButtonVariant from './FollowButtonVariants';
 
+// const useStyles = makeStyles(theme => ({
+//     root: {
+//       flexGrow: 1,
+//     },
+//     paper: {
+//       height: 140,
+//       width: 100,
+//     },
+//     control: {
+//       padding: theme.spacing(2),
+//     },
+//   }));
 
 class UserBody extends Component {
     state = {
@@ -31,16 +44,16 @@ class UserBody extends Component {
     submitPost = () => {
         if (this.state.uploadedImageForPost !== null && this.state.postDescription !== null) {
             SubmitPost(this.props.loggedInUser.userId, this.state.uploadedImageForPost, this.state.postDescription)
-            .then(res => {
-                if (res.success === true) {
-                    this.setState({ uploadedImageForPost: null })
-                    this.setState({ postDescription: null })
-                    this.props.redirectToUserPage(this.props.loggedInUser.userId);
-                }
-                else {
-                    console.log("whoops")
-                }
-            });
+                .then(res => {
+                    if (res.success === true) {
+                        this.setState({ uploadedImageForPost: null })
+                        this.setState({ postDescription: null })
+                        this.props.redirectToUserPage(this.props.loggedInUser.userId);
+                    }
+                    else {
+                        console.log("whoops")
+                    }
+                });
         }
         else {
             console.log("nulllssss")
@@ -51,75 +64,89 @@ class UserBody extends Component {
     render() {
         return (
             <Fragment>
-                <Grid container>
-                    <Grid item sm={9}>
-                        {this.props.posts && this.props.posts.length > 0 &&
-                            <PostList posts={this.props.posts} direction="row" redirectToUserPage={this.props.redirectToUserPage} />
-                        }
-                    </Grid>
-                    <Grid item sm={2} style={{ margin: 10 }}>
+                <Grid container margin={6}>
+                    <Grid container item>
                         <Paper>
-                            <Box margin={5}>
-                                <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)}/>
-                                <Typography variant="button" display="block" gutterBottom>{this.props.loggedInUser.name}</Typography>
-                            </Box>
+                            <Grid container item direction="row">
+                                <Grid item sm={2}>
+                                    <Box margin={5}>
+                                        <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} />
+                                    </Box>
+                                </Grid>
+                                <Grid item sm={6}>
+                                    <Box margin={5}>
+                                        <Paper>
+                                            <Box margin={1}>
+                                            <Typography variant="overline" display="block">{this.props.loggedInUser.name}</Typography>
+                                            </Box>
+                                        </Paper>
+                                    </Box>
+                                </Grid>
+                                <Grid item sm={4}>
+                                    <Box margin={5}>
+                                        <FollowButtonVariant requestStatus="followed"></FollowButtonVariant>
+                                    </Box>
+                                </Grid>
+                            </Grid>
                         </Paper>
                     </Grid>
                     <Grid container item>
-                        <Grid item sm={9}>
-                            {this.props.posts && this.props.posts.length > 0 &&
-                                <PostList posts={this.props.posts} direction="row" />
-                            }
-                        </Grid>
-                        <Grid item sm={2} style={{ margin: 10 }}>
-                            <Paper>
-                                <Grid container direction="column" style={{ padding: 10 }}>
-                                    <Grid item>
-                                        <input
-                                            accept="image/jpeg"
-                                            style={{ display: "none" }}
-                                            id="uploadButton"
-                                            multiple
-                                            type="file"
-                                            onChange={this.imageInputChanged}
-                                        />
-                                        <label htmlFor="uploadButton">
-                                            <Button disabled={this.state.uploadingImage} variant="contained" component="span">
-                                                SELECT IMAGE
-                                </Button>
-                                            {this.state.uploadingImage && <CircularProgress size={24} className={{
-                                                color: green[500],
-                                                position: 'absolute',
-                                                top: '50%',
-                                                left: '50%',
-                                                marginTop: -12,
-                                                marginLeft: -12
-                                            }} />}
-                                        </label>
-                                    </Grid>
-                                    {this.state.uploadedImageForPost &&
+                        <Grid container item>
+                            <Grid item sm={9}>
+                                {this.props.posts && this.props.posts.length > 0 &&
+                                    <PostList posts={this.props.posts} direction="row" />
+                                }
+                            </Grid>
+                            <Grid item sm={2} style={{ margin: 10 }}>
+                                <Paper>
+                                    <Grid container direction="column" style={{ padding: 10 }}>
                                         <Grid item>
-                                            <img height={150} width={150} src={GetPostImageUrlById(this.state.uploadedImageForPost)} />
+                                            <input
+                                                accept="image/jpeg"
+                                                style={{ display: "none" }}
+                                                id="uploadButton"
+                                                multiple
+                                                type="file"
+                                                onChange={this.imageInputChanged}
+                                            />
+                                            <label htmlFor="uploadButton">
+                                                <Button disabled={this.state.uploadingImage} variant="contained" component="span">
+                                                    SELECT IMAGE
+                                </Button>
+                                                {this.state.uploadingImage && <CircularProgress size={24} className={{
+                                                    color: green[500],
+                                                    position: 'absolute',
+                                                    top: '50%',
+                                                    left: '50%',
+                                                    marginTop: -12,
+                                                    marginLeft: -12
+                                                }} />}
+                                            </label>
                                         </Grid>
-                                    }
-                                    <Grid item>
-                                        <TextField
-                                            id="description"
-                                            label="Description"
-                                            type="text"
-                                            name="description"
-                                            margin="normal"
-                                            variant="outlined"
-                                            onChange={(e) => this.setState({ postDescription: e.target.value })}
-                                        />
-                                    </Grid>
-                                    <Grid item>
-                                        <Button variant="contained" onClick={this.submitPost}>
-                                            POST
+                                        {this.state.uploadedImageForPost &&
+                                            <Grid item>
+                                                <img height={150} width={150} src={GetPostImageUrlById(this.state.uploadedImageForPost)} />
+                                            </Grid>
+                                        }
+                                        <Grid item>
+                                            <TextField
+                                                id="description"
+                                                label="Description"
+                                                type="text"
+                                                name="description"
+                                                margin="normal"
+                                                variant="outlined"
+                                                onChange={(e) => this.setState({ postDescription: e.target.value })}
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <Button variant="contained" onClick={this.submitPost}>
+                                                POST
                             </Button>
+                                        </Grid>
                                     </Grid>
-                                </Grid>
-                            </Paper>
+                                </Paper>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </Grid>
