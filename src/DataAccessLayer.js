@@ -1,5 +1,5 @@
-export async function GetUserFeed(userId, take, lastPostId){
-    let uri = "https://localhost:44329/api/posts/listposts?type=userfeed&take=" + take + "&userId=" + userId
+export async function GetUserFeed(userId, loggedInUserId, take, lastPostId){
+    let uri = "https://localhost:44329/api/posts/listposts?type=userfeed&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
     if (lastPostId){
         uri += "&lastPostId=" + lastPostId 
     }
@@ -39,8 +39,8 @@ export async function SubmitPost(userId, imageId, description){
     }
 }
 
-export async function LoadUserPosts(userId, take, lastPostId){
-    let uri = "https://localhost:44329/api/posts/listposts?type=usersite&take=" + take + "&userId=" + userId
+export async function LoadUserPosts(userId, loggedInUserId, take, lastPostId){
+    let uri = "https://localhost:44329/api/posts/listposts?type=usersite&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
     if (lastPostId){
         uri += "&lastPostId=" + lastPostId 
     }

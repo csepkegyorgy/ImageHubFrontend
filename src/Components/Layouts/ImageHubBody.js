@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { Button, Grid, Box, Paper, CircularProgress, TextField } from '@material-ui/core';
 import LoginPane from '../Parts/LoginPane';
 import PostList from '../Parts/PostList';
-import { UploadImageForPost, GetPostImageUrlById, SubmitPost } from '../../DataAccessLayer';
 import { green } from '@material-ui/core/colors';
 import UserBody from '../Parts/UserBody';
 import Feed from '../Parts/Feed';
@@ -12,6 +11,7 @@ class ImageHubBody extends Component {
     
 
     render() {
+        console.log(this.props.redirectToUserPage)
         return (
             <Fragment>
                 {!this.props.loggedInUser &&
@@ -27,13 +27,13 @@ class ImageHubBody extends Component {
                 {this.props.loggedInUser && this.props.bodySite === "feed" &&
                     <Fragment>
                         {this.props.posts && this.props.posts.length > 0 &&
-                           <Feed loggedInUser={this.props.loggedInUser} posts={this.props.posts}></Feed>
+                           <Feed loggedInUser={this.props.loggedInUser} posts={this.props.posts} />
                         }
                     </Fragment>
                 }
 
                 {this.props.loggedInUser && this.props.bodySite === "user" &&
-                    <UserBody loggedInUser={this.props.loggedInUser} userPageUserId={this.props.userPageUserId} posts={this.props.posts}></UserBody>
+                    <UserBody loggedInUser={this.props.loggedInUser} userPageUserId={this.props.userPageUserId} posts={this.props.posts} redirectToUserPage={this.props.redirectToUserPage} />
                 }
             </Fragment>
         );

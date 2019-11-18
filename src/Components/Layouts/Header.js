@@ -49,8 +49,7 @@ class Header extends Component {
                                             <Settings />
                                         </IconButton>
                                         <Button>
-                                            <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} onClick={this.props.redirectToUserPage} />
-
+                                            <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} onClick={() => this.props.redirectToUserPage(this.props.loggedInUser.userId)} />
                                         </Button>
                                     </Box>
                                 </Fragment>

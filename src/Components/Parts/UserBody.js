@@ -53,7 +53,7 @@ class UserBody extends Component {
                 <Grid container>
                     <Grid item sm={9}>
                         {this.props.posts && this.props.posts.length > 0 &&
-                            <PostList posts={this.props.posts} direction="row" />
+                            <PostList posts={this.props.posts} direction="row" redirectToUserPage={this.props.redirectToUserPage} />
                         }
                     </Grid>
                     <Grid item sm={2} style={{ margin: 10 }}>
