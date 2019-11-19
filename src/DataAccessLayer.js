@@ -1,6 +1,6 @@
 // "https://localhost:44329/api/"
 // "https://imagehubapibackend.azurewebsites.net/api/"
-const backendDomain = "https://localhost:44329/api/";
+const backendDomain = "https://imagehubapibackend.azurewebsites.net/api/";
 
 export async function GetUserFeed(userId, loggedInUserId, take, lastPostId){
     let uri = backendDomain + "posts/listposts?type=userfeed&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId
@@ -190,7 +190,7 @@ export async function CreateUnfollowUserRequest(loggedInUserId, targetUserId) {
       body: formData 
     }
 
-    const response = await fetch('https://localhost:44329/api/userrelations/', options).catch(console.log)
+    const response = await fetch(backendDomain + "userrelations/", options).catch(console.log)
     if (response) {
         const jsonResponse = await response.json()
         return jsonResponse;
