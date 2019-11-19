@@ -11,7 +11,7 @@ export async function GetUserFeed(userId, loggedInUserId, take, lastPostId){
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." } 
+        return { error : "No backend server available (GetUserFeed)." } 
     }
 
 }
@@ -37,7 +37,7 @@ export async function SubmitPost(userId, imageId, description){
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." }
+        return { error : "No backend server available (SubmitPost)." }
     }
 }
 
@@ -52,7 +52,7 @@ export async function LoadUserPosts(userId, loggedInUserId, take, lastPostId){
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." } 
+        return { error : "No backend server available (LoadUserPosts)." } 
     }
 }
 
@@ -69,7 +69,7 @@ export async function AuthenticateUserByFacebookLogin(facebookResponse) {
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." } 
+        return { errors : [ "No backend server available (AuthenticateUserByFacebookLogin)." ]} 
     }
 }
 
@@ -82,7 +82,7 @@ export async function SearchUsersByPartialUserName(partialUserName) {
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." } 
+        return { error : "No backend server available (SearchUsersByPartialUserName)." } 
     }
 }
 
@@ -98,7 +98,7 @@ export async function GetUserRelationByUserId(loggedInUserId, targetUserId) {
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." } 
+        return { error : "No backend server available (GetUserRelationByUserId)." } 
     }
 }
 
@@ -122,7 +122,7 @@ export async function CreateFollowUserRequest(loggedInUserId, targetUserId) {
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." }
+        return { error : "No backend server available (CreateFollowUserRequest)." }
     }
 }
 
@@ -146,7 +146,7 @@ export async function CreateRejectFollowUserRequest(loggedInUserId, targetUserId
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." }
+        return { error : "No backend server available (CreateRejectFollowUserRequest)." }
     }
 }
 
@@ -170,7 +170,7 @@ export async function CreateAcceptFollowUserRequest(loggedInUserId, targetUserId
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." }
+        return { error : "No backend server available (CreateAcceptFollowUserRequest)." }
     }
 }
 
@@ -219,7 +219,7 @@ export async function UploadImageForPost(userId, file){
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." }
+        return { error : "No backend server available (UploadImageForPost)." }
     }
 }
 
