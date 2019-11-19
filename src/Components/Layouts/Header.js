@@ -91,7 +91,7 @@ class Header extends Component {
                             {this.props.loggedInUser &&
                                 <Fragment>
                                     <Fragment>
-                                        <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} ></TextField>
+                                        <TextField margin="normal" label="Search..." style={{border: '1px solid black', borderRadius: '4px', backgroundColor: 'white'}} variant="filled" onChange={(e) => this.onSearchBarChange(e)} ></TextField>
                                         <Button onClick={this.onSearchClick} variant="contained" color="secondary" className={{ margin: 2 }}>
                                             Search
                                         </Button>
