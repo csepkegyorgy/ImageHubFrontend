@@ -71,7 +71,9 @@ class Header extends Component {
                             {this.props.loggedInUser && 
                                 <Fragment>
                                     <Fragment>
-                                    <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} ></TextField>
+                                        <div>
+                                    <TextField variant="filled" margin="normal" label="Search..." style={{border: '1px solid black', borderRadius: '4px', backgroundColor: 'white'}} onChange={(e) => this.onSearchBarChange(e)} ></TextField>
+                                        </div>
                                     </Fragment>
                                     <Popover                                    
                                         open={this.state.isPopoverOpen}
