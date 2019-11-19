@@ -1,23 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Grid, Box, Paper, CircularProgress, TextField, Avatar, Typography } from '@material-ui/core';
 import PostList from '../Parts/PostList';
-import { UploadImageForPost, GetPostImageUrlById, SubmitPost } from '../../DataAccessLayer';
+import { UploadImageForPost, GetPostImageUrlById, SubmitPost, GetUserRelationByUserId } from '../../DataAccessLayer';
 import { green } from '@material-ui/core/colors';
 import { GetProfileIconImageUrlById } from '../../DataAccessLayer';
 import FollowButtonVariant from './FollowButtonVariants';
-
-// const useStyles = makeStyles(theme => ({
-//     root: {
-//       flexGrow: 1,
-//     },
-//     paper: {
-//       height: 140,
-//       width: 100,
-//     },
-//     control: {
-//       padding: theme.spacing(2),
-//     },
-//   }));
 
 class UserBody extends Component {
     state = {
@@ -77,14 +64,14 @@ class UserBody extends Component {
                                     <Box margin={5}>
                                         <Paper>
                                             <Box margin={1}>
-                                            <Typography variant="overline" display="block">{this.props.userPageUserId.name}</Typography>
+                                                <Typography variant="overline" display="block">{this.props.userPageUserId.name}</Typography>
                                             </Box>
                                         </Paper>
                                     </Box>
                                 </Grid>
                                 <Grid item sm={4}>
                                     <Box margin={5}>
-                                        <FollowButtonVariant requestStatus="followed"></FollowButtonVariant>
+                                        <FollowButtonVariant redirectToUserPage={this.props.redirectToUserPage} loggedInUser={this.props.loggedInUser} targetUserId={this.props.userPageUserId} requestStatus={this.props.userRelation} />
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -112,7 +99,7 @@ class UserBody extends Component {
                                             <label htmlFor="uploadButton">
                                                 <Button disabled={this.state.uploadingImage} variant="contained" component="span">
                                                     SELECT IMAGE
-                                </Button>
+                                                </Button>
                                                 {this.state.uploadingImage && <CircularProgress size={24} className={{
                                                     color: green[500],
                                                     position: 'absolute',
@@ -142,7 +129,7 @@ class UserBody extends Component {
                                         <Grid item>
                                             <Button variant="contained" onClick={this.submitPost}>
                                                 POST
-                            </Button>
+                                            </Button>
                                         </Grid>
                                     </Grid>
                                 </Paper>

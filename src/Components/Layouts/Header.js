@@ -25,26 +25,6 @@ class Header extends Component {
     onSearchBarChange(e) {
         this.setState({ searchText: e.target.value });
     }
-    // onSearchBarChange(e) {
-    //     let newValue = e.target.value;
-    //     if (newValue.length > 0){
-    //         this.setState({ isPopoverOpen: true });
-    //         SearchUsersByPartialUserName(newValue)
-    //         .then(res => {
-    //             if (res.success === true)
-    //             {
-    //                 this.setState({searchResults: res.users})
-    //             }
-    //             else {
-    //                 console.log(res.errors);
-    //             }
-    //         })
-    //     }
-    // }
-
-    closePopover() {
-        this.setState({ isPopoverOpen: false });
-    }
 
     onSearchClick = (e) => {
         this.setState({ anchorElement: e.currentTarget });
@@ -66,13 +46,11 @@ class Header extends Component {
     }
 
     onElementClick = () => {
-        this.setState({ searchText: null });
-        this.setState({ anchorElement: null });
+        this.setState({ searchText: null }, () => {this.setState({ anchorElement: null }, () => {this.setState({searchResults: null})})});
     }
 
     render() {
         let popOpen = this.state.anchorElement !== null;
-        console.log(popOpen + "____" + this.state.anchorElement)
         return (
             <Fragment>
                 <AppBar position="static" >

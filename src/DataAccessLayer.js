@@ -1,4 +1,6 @@
-const backendDomain = "https://imagehubapibackend.azurewebsites.net/api/";
+// "https://localhost:44329/api/"
+// "https://imagehubapibackend.azurewebsites.net/api/"
+const backendDomain = "https://localhost:44329/api/";
 
 export async function GetUserFeed(userId, loggedInUserId, take, lastPostId){
     let uri = backendDomain + "posts/listposts?type=userfeed&take=" + take + "&userId=" + userId + "&loggedInUserId=" + loggedInUserId

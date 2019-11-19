@@ -4,7 +4,7 @@ import ImageHubBody from './Components/Layouts/ImageHubBody';
 import Footer from './Components/Layouts/Footer';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
-import { AuthenticateUserByFacebookLogin, LoadUserPosts } from './DataAccessLayer'
+import { AuthenticateUserByFacebookLogin, LoadUserPosts, GetUserRelationByUserId } from './DataAccessLayer'
 import { GetUserFeed } from './DataAccessLayer'
 
 const theme = createMuiTheme({
@@ -19,7 +19,8 @@ class App extends Component {
     null,
     posts: [],
     bodySite : "feed",
-    userPageUserId : null
+    userPageUserId : null,
+    userRelation: null
   }
 
   handleUserLogin = (facebookResponse) => {
@@ -40,8 +41,15 @@ class App extends Component {
   }
 
   redirectToUserPage = (userId) => {
-    console.log(userId)
-      this.setState({bodySite:"user", userPageUserId: userId}, this.refreshPosts);
+      if (userId == this.state.loggedInUser.userId) {
+          this.setState({userRelation:null}, () => {this.setState({bodySite:"user", userPageUserId: userId}, this.refreshPosts)});
+      }
+      else {
+        GetUserRelationByUserId(this.state.loggedInUser.userId, userId)
+        .then(res => {
+          this.setState({userRelation: res.relation}, () => {this.setState({bodySite:"user", userPageUserId: userId}, this.refreshPosts)})
+        })
+      }
   }
   
   redirectToUserFeed = () => {
@@ -81,6 +89,7 @@ class App extends Component {
           posts={this.state.posts}
           refreshPosts={this.refreshPosts}
           userPageUserId={this.state.userPageUserId}
+          userRelation={this.state.userRelation}
           />
         <Footer />
       </MuiThemeProvider>

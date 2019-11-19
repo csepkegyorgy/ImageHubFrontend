@@ -33,7 +33,7 @@ class ImageHubBody extends Component {
                 }
 
                 {this.props.loggedInUser && this.props.bodySite === "user" &&
-                    <UserBody loggedInUser={this.props.loggedInUser} userPageUserId={this.props.userPageUserId} posts={this.props.posts} redirectToUserPage={this.props.redirectToUserPage} />
+                    <UserBody userRelation={this.props.userRelation} loggedInUser={this.props.loggedInUser} userPageUserId={this.props.userPageUserId} posts={this.props.posts} redirectToUserPage={this.props.redirectToUserPage} />
                 }
             </Fragment>
         );
