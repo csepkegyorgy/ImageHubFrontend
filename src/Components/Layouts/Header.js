@@ -11,10 +11,24 @@ import { SearchUsersByPartialUserName } from '../../DataAccessLayer';
 
 
 class Header extends Component {
+    constructor(props){
+        super(props)        
+        // this.escFunction = this.escFunction.bind(this);
+    }
     state = {
         isPopoverOpen: false,
-        searchResults: null
+        searchResults: null,
     }
+    // escFunction(){
+    //         this.onSearchBarChange("");
+    //         this.setState({ isPopoverOpen: false });
+    //   }
+    //   componentDidMount(){
+    //     document.addEventListener("keydown", this.escFunction, false);
+    //   }
+    //   componentWillUnmount(){
+    //     document.removeEventListener("keydown", this.escFunction, false);
+    //   }
 
     onSearchBarChange(e) {
         let newValue = e.target.value;
@@ -31,6 +45,10 @@ class Header extends Component {
                 }
             })
         }
+    }
+
+    closePopover() {        
+        this.setState({ isPopoverOpen: false});
     }
 
 
@@ -50,25 +68,23 @@ class Header extends Component {
                             </Box>
                         </Grid>
                         <Grid item sm>
-                            {this.props.loggedInUser &&
+                            {this.props.loggedInUser && 
                                 <Fragment>
-                                    <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} />
-
-                                    <Popover
+                                    <Fragment>
+                                    <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} ></TextField>
+                                    </Fragment>
+                                    <Popover                                    
                                         open={this.state.isPopoverOpen}
-                                        anchorEl={true}
-                                        anchorPosition={{ top: 0, left: 400 }}
-                                        anchorOrigin={{
-                                            vertical: 'bottom',
-                                            horizontal: 'center',
-                                          }}
-                                          transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'center',
-                                          }}>
+                                        anchorEl={true}    
+                                          >
                                                 { console.log("popover is opened: " + this.state.isPopoverOpen) }
-                                                {this.state.searchResults && <SearchResultList redirectToUserPage={this.props.redirectToUserPage} users={this.state.searchResults}></SearchResultList>}                                                
-                                                < Typography > The content of the Popover.</Typography>
+                                                {this.state.searchResults &&
+                                                <div>
+                                                    {/* <Button onClick={this.togglePopoverState()}>X</Button> */}
+                                                    <SearchResultList redirectToUserPage={this.props.redirectToUserPage} users={this.state.searchResults} 
+                                                    // escFunction={this.escFunction}
+                                                    > </SearchResultList>
+                                                </div> }
                                     </Popover>
                                 </Fragment>
                         }

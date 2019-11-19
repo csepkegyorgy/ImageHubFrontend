@@ -70,14 +70,14 @@ class UserBody extends Component {
                             <Grid container item direction="row">
                                 <Grid item sm={2}>
                                     <Box margin={5}>
-                                        <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} />
+                                        <Avatar src={GetProfileIconImageUrlById(this.props.userPageUserId.profileIconId)} />
                                     </Box>
                                 </Grid>
                                 <Grid item sm={6}>
                                     <Box margin={5}>
                                         <Paper>
                                             <Box margin={1}>
-                                            <Typography variant="overline" display="block">{this.props.loggedInUser.name}</Typography>
+                                            <Typography variant="overline" display="block">{this.props.userPageUserId.name}</Typography>
                                             </Box>
                                         </Paper>
                                     </Box>
