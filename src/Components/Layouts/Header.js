@@ -11,48 +11,68 @@ import { SearchUsersByPartialUserName } from '../../DataAccessLayer';
 
 
 class Header extends Component {
-    constructor(props){
-        super(props)        
-        // this.escFunction = this.escFunction.bind(this);
+    constructor(props) {
+        super(props)
     }
+
     state = {
-        isPopoverOpen: false,
         searchResults: null,
+        searchText: null,
+        anchorElement: null
     }
-    // escFunction(){
-    //         this.onSearchBarChange("");
-    //         this.setState({ isPopoverOpen: false });
-    //   }
-    //   componentDidMount(){
-    //     document.addEventListener("keydown", this.escFunction, false);
-    //   }
-    //   componentWillUnmount(){
-    //     document.removeEventListener("keydown", this.escFunction, false);
-    //   }
+
 
     onSearchBarChange(e) {
-        let newValue = e.target.value;
-        if (newValue.length > 0){
-            this.setState({ isPopoverOpen: true });
+        this.setState({ searchText: e.target.value });
+    }
+    // onSearchBarChange(e) {
+    //     let newValue = e.target.value;
+    //     if (newValue.length > 0){
+    //         this.setState({ isPopoverOpen: true });
+    //         SearchUsersByPartialUserName(newValue)
+    //         .then(res => {
+    //             if (res.success === true)
+    //             {
+    //                 this.setState({searchResults: res.users})
+    //             }
+    //             else {
+    //                 console.log(res.errors);
+    //             }
+    //         })
+    //     }
+    // }
+
+    closePopover() {
+        this.setState({ isPopoverOpen: false });
+    }
+
+    onSearchClick = (e) => {
+        this.setState({ anchorElement: e.currentTarget });
+
+        let newValue = this.state.searchText;
+        if (newValue.length > 0) {
+            
             SearchUsersByPartialUserName(newValue)
-            .then(res => {
-                if (res.success === true)
-                {
-                    this.setState({searchResults: res.users})
-                }
-                else {
-                    console.log(res.errors);
-                }
-            })
+                .then(res => {
+                    if (res.success === true) {
+                        this.setState({ searchResults: res.users })
+                    }
+                    else {
+                        console.log(res.errors);
+                        this.onElementClick();
+                    }
+                })
         }
     }
 
-    closePopover() {        
-        this.setState({ isPopoverOpen: false});
+    onElementClick = () => {
+        this.setState({ searchText: null });
+        this.setState({ anchorElement: null });
     }
 
-
     render() {
+        let popOpen = this.state.anchorElement !== null;
+        console.log(popOpen + "____" + this.state.anchorElement)
         return (
             <Fragment>
                 <AppBar position="static" >
@@ -68,44 +88,44 @@ class Header extends Component {
                             </Box>
                         </Grid>
                         <Grid item sm>
-                            {this.props.loggedInUser && 
+                            {this.props.loggedInUser &&
                                 <Fragment>
                                     <Fragment>
-                                    <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} ></TextField>
+                                        <TextField variant="filled" onChange={(e) => this.onSearchBarChange(e)} ></TextField>
+                                        <Button onClick={this.onSearchClick} variant="contained" color="secondary" className={{ margin: 2 }}>
+                                            Search
+                                        </Button>
                                     </Fragment>
-                                    <Popover                                    
-                                        open={this.state.isPopoverOpen}
-                                        anchorEl={true}    
-                                          >
-                                                { console.log("popover is opened: " + this.state.isPopoverOpen) }
-                                                {this.state.searchResults &&
-                                                <div>
-                                                    {/* <Button onClick={this.togglePopoverState()}>X</Button> */}
-                                                    <SearchResultList redirectToUserPage={this.props.redirectToUserPage} users={this.state.searchResults} 
-                                                    // escFunction={this.escFunction}
-                                                    > </SearchResultList>
-                                                </div> }
+                                    <Popover open={popOpen} anchorEl={this.state.anchorElement}>
+                                        {this.state.searchResults &&
+                                            <div>
+                                                <SearchResultList
+                                                    onElementClick={this.onElementClick}
+                                                    redirectToUserPage={this.props.redirectToUserPage}
+                                                    users={this.state.searchResults}
+                                                />
+                                            </div>}
                                     </Popover>
                                 </Fragment>
-                        }
+                            }
                         </Grid>
-                    <Grid item sm>
-                        {this.props.loggedInUser &&
-                            <Fragment>
-                                <Box height={100}>
-                                    <IconButton aria-label="settings">
-                                        <Comment />
-                                    </IconButton>
-                                    <IconButton aria-label="settings">
-                                        <Settings />
-                                    </IconButton>
-                                    <Button>
-                                        <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} onClick={() => this.props.redirectToUserPage(this.props.loggedInUser.userId)} />
-                                    </Button>
-                                </Box>
-                            </Fragment>
-                        }
-                    </Grid>
+                        <Grid item sm>
+                            {this.props.loggedInUser &&
+                                <Fragment>
+                                    <Box height={100}>
+                                        <IconButton aria-label="settings">
+                                            <Comment />
+                                        </IconButton>
+                                        <IconButton aria-label="settings">
+                                            <Settings />
+                                        </IconButton>
+                                        <Button>
+                                            <Avatar src={GetProfileIconImageUrlById(this.props.loggedInUser.profileIconId)} onClick={() => this.props.redirectToUserPage(this.props.loggedInUser.userId)} />
+                                        </Button>
+                                    </Box>
+                                </Fragment>
+                            }
+                        </Grid>
                     </Grid>
                 </AppBar>
             </Fragment >

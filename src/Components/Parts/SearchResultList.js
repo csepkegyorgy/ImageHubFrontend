@@ -7,17 +7,12 @@ class SearchResultList extends Component {
     render() {
         return(
             <Fragment>
-                <Grid container direction="column" spacing={0} 
-                // style={{verticalAlign: 'center'
-                //     // minHeight: '100vh'
-                // }}
-                //  direction={this.props.direction} 
-                 alignItems="center" justify="center">
+                <Grid container direction="column" spacing={0} alignItems="center" justify="center">
                     {this.props.users.map(user => {
                         return(
                             <Button onClick={() => {
                                 this.props.redirectToUserPage(user.userId);
-                                // this.props.escFunction();
+                                this.props.onElementClick();
                             }}>
                             <Grid container direction="row" style={{margin:10}} key={user.userId}>
                                <Grid item sm={4}>

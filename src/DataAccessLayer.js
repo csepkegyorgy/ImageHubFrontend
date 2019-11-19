@@ -194,7 +194,7 @@ export async function CreateUnfollowUserRequest(loggedInUserId, targetUserId) {
         return jsonResponse;
     }
     else {
-        return { error : "No backend server available." }
+        return { error : "No backend server available (CreateUnfollowUserRequest)." }
     }
 }
 
